@@ -19,4 +19,16 @@ defmodule IslandsEngine.Island do
 
   defp offset(_), do: {:error, :invalis_island_type}
 
+  defp add_coordiantes(offsets, upper_left) do
+    Enum.reduce_while(offsets, MapSet.new(), fn offset, acc ->
+      add_coordinate(acc, upper_left, offset)
+    end)
+  end
+
+  defp add_coordinate(coordinates, %Coordinate{row: row, col: col}, {row_offset, col_offset}) do
+    case Coordinate.new(row + row_offset, col + col_offset) do
+      {:ok, coordinate} -> {:cont, MapSet.put(coordinates, coordinate)}
+      {:error, :invalid_coordinate} -> {:halt, {:error, :invalid_coordinate}}
+    end
+  end
 end
