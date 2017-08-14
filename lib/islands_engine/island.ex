@@ -31,7 +31,7 @@ defmodule IslandsEngine.Island do
 
   defp offsets(:square), do: [{0,0},{0,1},{1,0},{1,1}]
 
-  defp offsets(:atol), do: [{0,0},{0,1},{1,1},{2,0},{2,1}]
+  defp offsets(:atoll), do: [{0,0},{0,1},{1,1},{2,0},{2,1}]
 
   defp offsets(:dot), do: [{0,0}]
 
