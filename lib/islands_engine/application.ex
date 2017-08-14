@@ -6,10 +6,15 @@ defmodule IslandsEngine.Application do
   use Application
 
   def start(_type, _args) do
+    import Supervisor.Spec
+
+    {:ok, _} = Registry.start_link(keys: :unique, name: Registry.Game)
+
     # List all child processes to be supervised
     children = [
       # Starts a worker by calling: IslandsEngine.Worker.start_link(arg)
       # {IslandsEngine.Worker, arg},
+      supervisor(Registry, [:unique, Registry.Game])
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
